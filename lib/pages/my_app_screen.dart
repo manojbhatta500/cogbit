@@ -48,24 +48,12 @@ class _MyAppScreenState extends State<MyAppScreen>
                 ),
                 ScaleTransition(
                   scale: _animation,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      'My App',
-                      style: GoogleFonts.crimsonPro(
-                        color: CustomColors.purpleColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black,
-                      backgroundColor: Colors.yellow,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
+                  child: Text(
+                    'My App',
+                    style: GoogleFonts.crimsonPro(
+                      color: CustomColors.purpleColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
                 ),
