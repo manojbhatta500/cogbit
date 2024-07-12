@@ -88,6 +88,7 @@ class _LoginMobileScreenState extends State<LoginMobileScreen> {
                     // ),
                     child: Icon(
                       Icons.phone,
+                      color: CustomColors.purpleColor,
                       size: 15,
                     ),
                   ),

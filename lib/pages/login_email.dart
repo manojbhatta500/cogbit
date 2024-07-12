@@ -1,3 +1,4 @@
+import 'package:cogbit/pages/bottom_bar.dart';
 import 'package:cogbit/utils/custom_colors.dart';
 import 'package:cogbit/utils/size.dart';
 import 'package:cogbit/widgets/custom_button.dart';
@@ -94,7 +95,12 @@ class _LoginEmailScreenState extends State<LoginEmailScreen> {
                 SizedBox(
                   height: 0.1 * height,
                 ),
-                CustomButton(title: 'Login'),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => BottomBar()));
+                    },
+                    child: CustomButton(title: 'Login')),
                 SizedBox(
                   height: 0.02 * height,
                 ),
