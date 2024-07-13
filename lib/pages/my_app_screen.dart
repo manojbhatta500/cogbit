@@ -39,35 +39,33 @@ class _MyAppScreenState extends State<MyAppScreen>
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-            automaticallyImplyLeading: false,
-            title: Row(
-              children: [
-                Image.asset(
-                  'assets/logo.png',
-                  height: 50,
-                ),
-                ScaleTransition(
-                  scale: _animation,
-                  child: Text(
-                    'My App',
-                    style: GoogleFonts.crimsonPro(
-                      color: CustomColors.purpleColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w900,
-                    ),
+          automaticallyImplyLeading: false,
+          title: Row(
+            children: [
+              Image.asset(
+                'assets/logo.png',
+                height: 50,
+              ),
+              ScaleTransition(
+                scale: _animation,
+                child: Text(
+                  'My App',
+                  style: GoogleFonts.crimsonPro(
+                    color: CustomColors.purpleColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
                   ),
                 ),
-              ],
-            )),
+              ),
+            ],
+          ),
+        ),
         body: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
+          child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // const SizedBox(height: 10),
-                // const CustomBanner(title: 'My Apps'),
                 const SizedBox(height: 20),
-
                 Container(
                   width: 0.8 * width,
                   decoration: BoxDecoration(
@@ -105,7 +103,6 @@ class _MyAppScreenState extends State<MyAppScreen>
                 ),
                 const SizedBox(height: 10),
                 const SizedBox(height: 20),
-
                 Container(
                   width: 0.8 * width,
                   child: Column(
@@ -156,22 +153,19 @@ class _MyAppScreenState extends State<MyAppScreen>
                     ],
                   ),
                 ),
-                // Add more widgets here as needed
-                SizedBox(
-                  height: 10,
-                ),
+                SizedBox(height: 10),
                 Container(
                   width: 0.8 * width,
                   child: Divider(),
                 ),
                 AppContainer(
                   heading: 'HR',
-                  detail: 'Add Department',
+                  detail: 'Add Employee',
                 ),
                 AppContainer(
                   heading: 'HR',
-                  detail: 'Add Employee',
-                ),
+                  detail: 'Add Department',
+                )
               ],
             ),
           ),

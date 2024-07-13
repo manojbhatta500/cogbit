@@ -46,11 +46,16 @@ class _CustomModuleWidgetState extends State<CustomModuleWidget>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double height = SizeConfig.screenWidth!;
 
     return Container(
-      // height: 0.3 * height,
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
@@ -132,15 +137,9 @@ class _CustomModuleWidgetState extends State<CustomModuleWidget>
               ScaleTransition(
                 scale: _animation,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => ChatScreen()));
-                  },
-                  child: IconButton(
-                    icon: Icon(Icons.edit),
-                    onPressed: widget.onEdit,
+                  onPressed: widget.onEdit,
+                  child: Icon(
+                    Icons.edit,
                     color: Theme.of(context).primaryColor,
                   ),
                   style: ElevatedButton.styleFrom(
@@ -158,15 +157,9 @@ class _CustomModuleWidgetState extends State<CustomModuleWidget>
               ScaleTransition(
                 scale: _animation,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => ChatScreen()));
-                  },
-                  child: IconButton(
-                    icon: Icon(Icons.check_circle),
-                    onPressed: widget.onApprove,
+                  onPressed: widget.onApprove,
+                  child: Icon(
+                    Icons.check_circle,
                     color: Theme.of(context).primaryColor,
                   ),
                   style: ElevatedButton.styleFrom(
