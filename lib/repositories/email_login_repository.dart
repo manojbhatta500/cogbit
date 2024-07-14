@@ -19,6 +19,14 @@ class EmailLoginRepository {
 
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);
+      //cookie part
+      final cookies = response.headers['set-cookie'];
+      if (cookies != null) {
+        final sessionId =
+            RegExp(r'JSESSIONID=([^;]+)').firstMatch(cookies)?.group(1);
+
+        log('cookie response = ${sessionId}');
+      }
 
       log('status code is 200 so i must be getting true');
       final realData = EmailLoginModel.fromJson(body);
