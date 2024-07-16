@@ -1,8 +1,10 @@
+import 'package:cogbit/blocs/get_all_module/get_all_module_bloc.dart';
 import 'package:cogbit/utils/custom_colors.dart';
 import 'package:cogbit/utils/size.dart';
 import 'package:cogbit/widgets/app_container.dart';
 import 'package:cogbit/widgets/custom_banner.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyAppScreen extends StatefulWidget {
@@ -18,6 +20,9 @@ class _MyAppScreenState extends State<MyAppScreen>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+
+
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +35,8 @@ class _MyAppScreenState extends State<MyAppScreen>
       curve: Curves.easeInOut,
     );
     _controller.forward();
+
+    BlocProvider.of<GetAllModuleBloc>(context).add(GetAllModule());
   }
 
   @override

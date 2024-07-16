@@ -1,4 +1,5 @@
-import 'package:cogbit/blocs/bloc/email_login_bloc.dart';
+import 'package:cogbit/blocs/email_login/email_login_bloc.dart';
+import 'package:cogbit/blocs/get_all_module/get_all_module_bloc.dart';
 import 'package:cogbit/pages/login_email.dart';
 import 'package:cogbit/pages/login_mobile.dart';
 import 'package:cogbit/pages/otp_screen.dart';
@@ -18,8 +19,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context); // Initialize SizeConfig here
-    return BlocProvider(
-      create: (context) => EmailLoginBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => EmailLoginBloc(),
+        ),
+        BlocProvider(
+          create: (context) => GetAllModuleBloc(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: '/splash_screen',

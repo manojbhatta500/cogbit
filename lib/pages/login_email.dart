@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cogbit/blocs/bloc/email_login_bloc.dart';
+import 'package:cogbit/blocs/email_login/email_login_bloc.dart';
 import 'package:cogbit/pages/bottom_bar.dart';
 import 'package:cogbit/utils/custom_colors.dart';
 import 'package:cogbit/utils/size.dart';
