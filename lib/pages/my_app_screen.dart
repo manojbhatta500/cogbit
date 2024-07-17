@@ -1,8 +1,8 @@
 import 'package:cogbit/blocs/get_all_module/get_all_module_bloc.dart';
+import 'package:cogbit/blocs/my_app/my_app_bloc.dart';
 import 'package:cogbit/utils/custom_colors.dart';
 import 'package:cogbit/utils/size.dart';
 import 'package:cogbit/widgets/app_container.dart';
-import 'package:cogbit/widgets/custom_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,9 +20,6 @@ class _MyAppScreenState extends State<MyAppScreen>
   late AnimationController _controller;
   late Animation<double> _animation;
 
-
-
-
   @override
   void initState() {
     super.initState();
@@ -37,6 +34,7 @@ class _MyAppScreenState extends State<MyAppScreen>
     _controller.forward();
 
     BlocProvider.of<GetAllModuleBloc>(context).add(GetAllModule());
+    BlocProvider.of<MyAppBloc>(context).add(GetMyAppList());
   }
 
   @override
@@ -49,9 +47,15 @@ class _MyAppScreenState extends State<MyAppScreen>
           automaticallyImplyLeading: false,
           title: Row(
             children: [
-              Image.asset(
-                'assets/logo.png',
-                height: 50,
+              GestureDetector(
+                onTap: () {
+                  BlocProvider.of<GetAllModuleBloc>(context).add(GetAllModule());
+                  BlocProvider.of<MyAppBloc>(context).add(GetMyAppList());
+                },
+                child: Image.asset(
+                  'assets/logo.png',
+                  height: 50,
+                ),
               ),
               ScaleTransition(
                 scale: _animation,
@@ -123,40 +127,57 @@ class _MyAppScreenState extends State<MyAppScreen>
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      DropdownButtonFormField<String>(
-                        value: dropdownValue,
-                        icon: Icon(
-                          Icons.arrow_downward,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide.none,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 15),
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValue = newValue!;
-                          });
-                        },
-                        items: <String>['All', 'HR', 'Purchase']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: GoogleFonts.crimsonPro(
-                                fontSize: 16,
+                      BlocBuilder<GetAllModuleBloc, GetAllModuleState>(
+                        builder: (context, state) {
+                          if (state is GetAllModuleSuccess) {
+                            List<String> moduleNames = ['All'];
+                            moduleNames.addAll(state.data.list.map((module) => module.name).toList());
+
+                            return DropdownButtonFormField<String>(
+                              value: dropdownValue,
+                              icon: Icon(
+                                Icons.arrow_downward,
+                                color: Theme.of(context).primaryColor,
                               ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide.none,
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 15,
+                                  horizontal: 15,
+                                ),
+                              ),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropdownValue = newValue!;
+                                  BlocProvider.of<MyAppBloc>(context).add(GetMyAppList());
+                                });
+                              },
+                              items: moduleNames.map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: GoogleFonts.crimsonPro(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                            );
+                          } else if (state is GetAllModuleLoading) {
+                            return Center(child: CircularProgressIndicator());
+                          } else if (state is GetAllModuleFailed) {
+                            return Center(child: Text('Failed to load modules.'));
+                          } else {
+                            return Center(child: Text('Unexpected state.'));
+                          }
+                        },
+                      )
                     ],
                   ),
                 ),
@@ -165,14 +186,48 @@ class _MyAppScreenState extends State<MyAppScreen>
                   width: 0.8 * width,
                   child: Divider(),
                 ),
-                AppContainer(
-                  heading: 'HR',
-                  detail: 'Add Employee',
+                BlocBuilder<MyAppBloc, MyAppState>(
+                  builder: (context, state) {
+                    if (state is MyAppSuccess) {
+                      var filteredList = dropdownValue == 'All'
+                          ? state.data.list
+                          : state.data.list.where((module) => module.moduleName == dropdownValue).toList();
+
+                      if (filteredList.isEmpty) {
+                        return Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            child: Text(
+                              'Sorry, no data available.',
+                              style: GoogleFonts.crimsonPro(
+                                fontSize: 16,
+                                color: CustomColors.purpleColor,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+
+                      return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 0.1 * width),
+                        height: 1000,
+                        child: ListView.builder(
+                          itemCount: filteredList.length,
+                          itemBuilder: (context, index) {
+                            final module = filteredList[index];
+                            return AppContainer(data: module);
+                          },
+                        ),
+                      );
+                    } else if (state is MyAppLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    } else if (state is MyAppFailed) {
+                      return Center(child: Text('Failed to load modules.'));
+                    } else {
+                      return Center(child: Text('Unexpected state.'));
+                    }
+                  },
                 ),
-                AppContainer(
-                  heading: 'HR',
-                  detail: 'Add Department',
-                )
               ],
             ),
           ),

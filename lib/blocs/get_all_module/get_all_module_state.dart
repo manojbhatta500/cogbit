@@ -11,7 +11,10 @@ final class GetAllModuleInitial extends GetAllModuleState {}
 
 final class GetAllModuleLoading extends GetAllModuleState {}
 
-final class GetAllModuleSuccess extends GetAllModuleState {}
+final class GetAllModuleSuccess extends GetAllModuleState {
+  final AllModuleListModel data;
+  GetAllModuleSuccess({required this.data});
+}
 
 final class GetAllModuleFailed extends GetAllModuleState {}
 

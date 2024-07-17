@@ -1,13 +1,14 @@
+import 'package:cogbit/models/my_apps_list_model.dart';
 import 'package:cogbit/utils/custom_colors.dart';
 import 'package:cogbit/utils/size.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppContainer extends StatefulWidget {
-  const AppContainer({super.key, required this.heading, required this.detail});
-
-  final String heading;
-  final String detail;
+   AppContainer({super.key, required this.data});
+  final Module data;
+  // final String heading;
+  // final String detail;
 
   @override
   State<AppContainer> createState() => _AppContainerState();
@@ -50,7 +51,7 @@ class _AppContainerState extends State<AppContainer> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  widget.heading,
+                  widget.data.moduleName,
                   style: GoogleFonts.crimsonPro(
                     fontSize: 20,
                     color: Colors.white,
@@ -65,7 +66,7 @@ class _AppContainerState extends State<AppContainer> {
             width: double.infinity,
             child: Center(
               child: Text(
-                widget.detail,
+                widget.data.description,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.crimsonPro(
                   fontSize: 20,
