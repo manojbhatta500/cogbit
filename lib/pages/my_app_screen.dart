@@ -37,6 +37,9 @@ class _MyAppScreenState extends State<MyAppScreen>
     BlocProvider.of<MyAppBloc>(context).add(GetMyAppList());
   }
 
+    // BlocProvider.of<GetAllModuleBloc>(context).add(GetAllModule());
+    //               BlocProvider.of<MyAppBloc>(context).add(GetMyAppList());
+
   @override
   Widget build(BuildContext context) {
     double width = SizeConfig.screenWidth!;
@@ -47,15 +50,9 @@ class _MyAppScreenState extends State<MyAppScreen>
           automaticallyImplyLeading: false,
           title: Row(
             children: [
-              GestureDetector(
-                onTap: () {
-                  BlocProvider.of<GetAllModuleBloc>(context).add(GetAllModule());
-                  BlocProvider.of<MyAppBloc>(context).add(GetMyAppList());
-                },
-                child: Image.asset(
-                  'assets/logo.png',
-                  height: 50,
-                ),
+              Image.asset(
+                'assets/logo.png',
+                height: 50,
               ),
               ScaleTransition(
                 scale: _animation,
