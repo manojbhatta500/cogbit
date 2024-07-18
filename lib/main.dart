@@ -1,3 +1,4 @@
+import 'package:cogbit/blocs/all_data_heading/get_all_data_heading_bloc.dart';
 import 'package:cogbit/blocs/email_login/email_login_bloc.dart';
 import 'package:cogbit/blocs/get_all_module/get_all_module_bloc.dart';
 import 'package:cogbit/blocs/my_app/my_app_bloc.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
          BlocProvider(
           create: (context) => MyAppBloc(),
         ),
+         BlocProvider(
+          create: (context) => GetAllDataHeadingBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -41,8 +45,11 @@ class MyApp extends StatelessWidget {
           '/login_phone': (context) => const LoginMobileScreen(),
           '/otp_screen': (context) => const OtpScreen(),
           '/password_screen': (context) => const PasswordScreen(),
+
         },
       ),
     );
   }
 }
+
+// 

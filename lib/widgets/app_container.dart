@@ -23,7 +23,7 @@ class _AppContainerState extends State<AppContainer> {
 
     return GestureDetector(
       onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (Context)=> AllDataScreen()));
+        Navigator.push(context, MaterialPageRoute(builder: (Context)=> AllDataScreen(data: widget.data!,)));
       },
       child: Container(
         width: 0.8 * width,
