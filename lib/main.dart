@@ -1,3 +1,4 @@
+import 'package:cogbit/blocs/all_data_body/all_data_body_bloc.dart';
 import 'package:cogbit/blocs/all_data_heading/get_all_data_heading_bloc.dart';
 import 'package:cogbit/blocs/email_login/email_login_bloc.dart';
 import 'package:cogbit/blocs/get_all_module/get_all_module_bloc.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context); // Initialize SizeConfig here
+    SizeConfig().init(context); 
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
          BlocProvider(
           create: (context) => GetAllDataHeadingBloc(),
         ),
+         BlocProvider(
+          create: (context) => AllDataBodyBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -45,7 +49,6 @@ class MyApp extends StatelessWidget {
           '/login_phone': (context) => const LoginMobileScreen(),
           '/otp_screen': (context) => const OtpScreen(),
           '/password_screen': (context) => const PasswordScreen(),
-
         },
       ),
     );
