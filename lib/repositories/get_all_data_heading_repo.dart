@@ -5,6 +5,7 @@ import 'package:cogbit/models/all_data_heading_model.dart';
 import 'package:cogbit/utils/api.dart';
 import 'package:cogbit/utils/cookie.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AllDataHeadingRepository {
@@ -30,6 +31,12 @@ class AllDataHeadingRepository {
 
       // Decode the inner JSON string
       final innerJson = jsonDecode(innerJsonString);
+
+
+      final innerJsontest = jsonEncode(innerJson);
+
+
+      log('the inner json response test  is this ${innerJsontest}');
 
       
 

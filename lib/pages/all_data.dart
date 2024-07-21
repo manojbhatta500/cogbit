@@ -18,7 +18,7 @@ class _AllDataScreenState extends State<AllDataScreen> {
 
   @override
   void initState() {
-    BlocProvider.of<GetAllDataHeadingBloc>(context).add(GetAllDataHeading(id: int.parse(widget.data.id) ));
+    BlocProvider.of<GetAllDataHeadingBloc>(context).add(GetAllDataHeading(id: int.parse(widget.data.id)));
     super.initState();
   }
 
