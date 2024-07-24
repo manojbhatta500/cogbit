@@ -1,111 +1,52 @@
-import 'dart:convert';
-
 class AllDataHeadingModel {
-  final String? someField;
-  final String? anotherField;
-  final List<Group>? groups;
+  final List<Item> items;
 
-  AllDataHeadingModel({
-    this.someField,
-    this.anotherField,
-    this.groups,
-  });
+  AllDataHeadingModel({required this.items});
 
   factory AllDataHeadingModel.fromJson(Map<String, dynamic> json) {
-    return AllDataHeadingModel(
-      someField: json['someField'] as String?,
-      anotherField: json['anotherField'] as String?,
-      groups: (json['groups'] as List<dynamic>?)
-          ?.map((e) => Group.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+    print('Received JSON: $json');
+    
+    // Check if the 'ka' key exists and is not null
+    final List<dynamic>? itemJson = json['ka'];
+    if (itemJson == null) {
+      throw Exception('The key "ka" does not exist or is null in the JSON');
+    }
+
+    // Map the items to the Item model
+    final List<Item> items = itemJson.map((item) {
+      return Item.fromJson(item as Map<String, dynamic>);
+    }).toList();
+
+    return AllDataHeadingModel(items: items);
   }
 
   Map<String, dynamic> toJson() {
+    // Map items back to JSON
+    final List<Map<String, dynamic>> itemJson = items.map((item) => item.toJson()).toList();
+
     return {
-      'someField': someField,
-      'anotherField': anotherField,
-      'groups': groups?.map((e) => e.toJson()).toList(),
+      'ka': itemJson,
     };
   }
 }
 
-class Group {
-  final String? name;
-  final List<Section>? sections;
+class Item {
+  final String k;
+  final String d;
 
-  Group({
-    this.name,
-    this.sections,
-  });
+  Item({required this.k, required this.d});
 
-  factory Group.fromJson(Map<String, dynamic> json) {
-    return Group(
-      name: json['name'] as String?,
-      sections: (json['sections'] as List<dynamic>?)
-          ?.map((e) => Section.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  factory Item.fromJson(Map<String, dynamic> json) {
+    return Item(
+      k: json['k'] ?? '',
+      d: json['d'] ?? '',
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'sections': sections?.map((e) => e.toJson()).toList(),
-    };
-  }
-}
-
-class Section {
-  final String? title;
-  final List<Field>? fields;
-
-  Section({
-    this.title,
-    this.fields,
-  });
-
-  factory Section.fromJson(Map<String, dynamic> json) {
-    return Section(
-      title: json['title'] as String?,
-      fields: (json['fields'] as List<dynamic>?)
-          ?.map((e) => Field.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'title': title,
-      'fields': fields?.map((e) => e.toJson()).toList(),
-    };
-  }
-}
-
-class Field {
-  final String? type;
-  final String? value;
-  final Map<String, dynamic>? additionalInfo;
-
-  Field({
-    this.type,
-    this.value,
-    this.additionalInfo,
-  });
-
-  factory Field.fromJson(Map<String, dynamic> json) {
-    return Field(
-      type: json['type'] as String?,
-      value: json['value'] as String?,
-      additionalInfo: json['additionalInfo'] as Map<String, dynamic>?,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'type': type,
-      'value': value,
-      'additionalInfo': additionalInfo,
+      'k': k,
+      'd': d,
     };
   }
 }

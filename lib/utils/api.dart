@@ -4,5 +4,5 @@ class Apis {
   static String getModuleList = '$baseApi/module/all';
   static String getMyAppList = '$baseApi/geconf/myapps';
 
-  static String getAllDataHeading = '${baseApi}/ge/objconf/';
+  static String getAllDataHeading = '${baseApi}/ge/listconf/';
 }
